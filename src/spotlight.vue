@@ -1,20 +1,17 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref, withDefaults } from "vue";
+import { computed, onMounted, onUnmounted, ref } from "vue";
 
-const props = withDefaults(
-  defineProps<{
-    activationKey?: string;
-    color?: string;
-    opacity?: number | string;
-    size?: string;
-    transitionDuration?: string;
-  }>(),
-  { activationKey: "Alt" }
-);
+const props = defineProps<{
+  activationKey?: string;
+  color?: string;
+  opacity?: number | string;
+  size?: string;
+  transitionDuration?: string;
+}>();
+const { activationKey = 'Alt' } = props;
 
 let x = 0;
 let y = 0;
-let cursor = document.body.style.cursor;
 const active = ref(false);
 const overlay = ref<HTMLDivElement>();
 const spotlight = ref<HTMLDivElement>();
@@ -33,14 +30,13 @@ function removeEmptyValues(obj: Record<string, any>): Record<string, any> {
 }
 
 function onKeydown(event: KeyboardEvent) {
-  if (event.key === props.activationKey) {
+  if (event.key === activationKey) {
     active.value = true;
-    document.body.style.cursor = "none";
   }
 }
 
 function onKeyup(event: KeyboardEvent) {
-  if (event.key === props.activationKey) {
+  if (event.key === activationKey) {
     active.value = false;
   }
 }
@@ -101,7 +97,8 @@ onUnmounted(() => {
   opacity: 0;
   visibility: hidden;
   transition: width var(--transition-duration),
-    height var(--transition-duration), opacity var(--transition-duration), visibility var(--transition-duration);
+    height var(--transition-duration), opacity var(--transition-duration),
+    visibility var(--transition-duration);
 }
 
 .spotlight-active {

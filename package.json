@@ -22,7 +22,8 @@
     "serve": "vue-cli-service serve dev/serve.ts",
     "prebuild": "rimraf ./dist",
     "build": "cross-env NODE_ENV=production rollup -c",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "postbuild": "rimraf ./dist/types/dev ./dist/types/src/entry.d.ts"
   },
   "keywords": [
     "vuejs",
@@ -48,7 +49,6 @@
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-commonjs": "^21.0.1",
     "@rollup/plugin-node-resolve": "^13.1.3",
-    "@rollup/plugin-typescript": "^8.3.0",
     "@vue/babel-preset-app": "^4.5.15",
     "@vue/cli-plugin-babel": "^4.5.15",
     "@vue/cli-plugin-typescript": "^4.5.15",
@@ -58,7 +58,9 @@
     "rimraf": "^3.0.2",
     "rollup": "^2.64.0",
     "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-typescript2": "^0.31.1",
     "rollup-plugin-vue": "^6.0.0",
+    "ttypescript": "^1.5.13",
     "typescript": "^4.5.4",
     "vue": "^3.2.27"
   }

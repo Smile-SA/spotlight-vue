@@ -6,7 +6,8 @@ import babel from "@rollup/plugin-babel";
 import PostCSS from "rollup-plugin-postcss";
 import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
-import typescript from "@rollup/plugin-typescript";
+import typescript from "rollup-plugin-typescript2";
+import ttypescript from "ttypescript";
 
 const name = "Spotlight";
 const lib = "spotlight";
@@ -72,9 +73,7 @@ export default [
       }),
       PostCSS({ include: /(?<!&module=.*)\.css$/ }),
       commonjs(),
-      typescript({
-        typescript: require("typescript")
-      }),
+      typescript({ typescript: ttypescript, useTsconfigDeclarationDir: true }),
       babel({
         exclude: "node_modules/**",
         extensions: [".js", ".jsx", ".ts", ".tsx", ".vue"],
