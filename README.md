@@ -1,6 +1,6 @@
 # vue-spotlight
 
-Key activable spotlight for Vue.js (initially built for Slidev)
+Key activable spotlight for `Vue.js` (initially built for Slidev)
 
 ![Spotlight demo](./assets/spotlight.gif)
 
@@ -12,11 +12,22 @@ npm i vue-spotlight
 
 ## Usage
 
-```vue
-<Spotlight/>
+Import with:
+```js
+import Spotlight from 'vue-spotlight';
 ```
 
-Then maintain the <kbd>Alt</kbd> key pressed and the spotlight should appear.
+register plugin:
+```js
+Vue.use(Spotlight);
+```
+
+Use it in your `Vue.js` app with:
+```vue
+<spotlight/>
+```
+
+In your app, maintain the <kbd>Alt</kbd> key pressed and the spotlight should appear.
 
 ## Parameters
 
