@@ -2,6 +2,8 @@
 
 Key activable spotlight for Vue.js (initially built for Slidev)
 
+![Spotlight demo](./assets/spotlight.gif)
+
 ## Installation
 
 ```bash
