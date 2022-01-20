@@ -1,14 +1,14 @@
 {
-  "name": "vue-spotlight",
+  "name": "spotlight-vue",
   "version": "0.0.1",
   "description": "Key activable spotlight for Vue.js (initially built for Slidev)",
-  "homepage": "https://github.com/Smile-SA/vue-spotlight",
+  "homepage": "https://github.com/Smile-SA/spotlight-vue",
   "repository": {
     "type": "git",
-    "url": "git@github.com:Smile-SA/vue-spotlight.git"
+    "url": "git@github.com:Smile-SA/spotlight-vue.git"
   },
   "bugs": {
-    "url": "https://github.com/Smile-SA/vue-spotlight/issues"
+    "url": "https://github.com/Smile-SA/spotlight-vue/issues"
   },
   "main": "dist/spotlight.js",
   "browser": "dist/spotlight.mjs",

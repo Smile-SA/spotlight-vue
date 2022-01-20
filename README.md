@@ -1,4 +1,4 @@
-# vue-spotlight
+# spotlight-vue
 
 Key activable spotlight for `Vue.js` (initially built for Slidev)
 
@@ -7,14 +7,14 @@ Key activable spotlight for `Vue.js` (initially built for Slidev)
 ## Installation
 
 ```bash
-npm i vue-spotlight
+npm i spotlight-vue
 ```
 
 ## Usage
 
 Import with:
 ```js
-import Spotlight from 'vue-spotlight';
+import Spotlight from 'spotlight-vue';
 ```
 
 register plugin:
