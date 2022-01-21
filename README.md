@@ -1,5 +1,7 @@
 # spotlight-vue
 
+[![NPM version](https://img.shields.io/npm/v/spotlight-vue?color=3AB9D4&label=)](https://www.npmjs.com/package/spotlight-vue)
+
 Key activable spotlight for `Vue.js` (initially built for Slidev)
 
 ![Spotlight demo](./assets/spotlight.gif)
@@ -17,7 +19,7 @@ Import with:
 import Spotlight from 'spotlight-vue';
 ```
 
-register plugin:
+Register the plugin:
 ```js
 Vue.use(Spotlight);
 ```
