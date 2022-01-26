@@ -1,3 +1,9 @@
+#### 0.2.1 (2022-01-26)
+
+##### Bug Fixes
+
+*  prepublish script ([656c64e9](https://github.com/Smile-SA/spotlight-vue/commit/656c64e91636e58a476b6159779a167eb7518faf))
+
 ### 0.2.0 (2022-01-26)
 
 ##### Bug Fixes
