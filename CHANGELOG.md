@@ -1,3 +1,13 @@
+### 0.2.0 (2022-01-26)
+
+##### Bug Fixes
+
+*  issues with firefox ([9ac89119](https://github.com/Smile-SA/spotlight-vue/commit/9ac89119f17b5d4a458c5b15a0f2229cc0ddaffa))
+
+##### Other Changes
+
+*  add badge ([354d44e8](https://github.com/Smile-SA/spotlight-vue/commit/354d44e8dfa192de183be2e2300804a774f21c83))
+
 ### 0.1.0 (2022-01-21)
 
 ##### Chores
