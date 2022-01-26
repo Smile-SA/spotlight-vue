@@ -8,7 +8,7 @@ const props = defineProps<{
   size?: string;
   transitionDuration?: string;
 }>();
-const { activationKey = 'Alt' } = props;
+const { activationKey = 'Control' } = props;
 
 let x = 0;
 let y = 0;
@@ -30,6 +30,7 @@ function removeEmptyValues(obj: Record<string, any>): Record<string, any> {
 }
 
 function onKeydown(event: KeyboardEvent) {
+  console.log(event.key);
   if (event.key === activationKey) {
     active.value = true;
   }
@@ -69,7 +70,12 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-.spotlight-overlay {
+.spotlight__overlay {
+  --color: black;
+  --opacity: 0.75;
+  --size: 100px;
+  --transition-duration: 200ms;
+
   position: absolute;
   top: 0;
   right: 0;
@@ -77,43 +83,42 @@ onUnmounted(() => {
   left: 0;
   pointer-events: none;
   overflow: hidden;
+	background-color: var(--color);
+  mix-blend-mode: multiply;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-duration), visibility var(--transition-duration);
+}
+
+.spotlight__overlay--active {
+  opacity: var(--opacity);
+  visibility: visible;
 }
 
 .spotlight {
-  --color: black;
-  --opacity: 0.75;
-  --size: 100px;
-  --transition-duration: 200ms;
-
   position: absolute;
   box-sizing: content-box;
   cursor: none;
   pointer-events: all;
   border-radius: 50%;
   transform: translate(-50%, -50%);
-  border: 9999px solid var(--color);
+  background-color: white;
   width: 0;
   height: 0;
-  opacity: 0;
-  visibility: hidden;
-  transition: width var(--transition-duration),
-    height var(--transition-duration), opacity var(--transition-duration),
-    visibility var(--transition-duration);
+  transition: width var(--transition-duration), height var(--transition-duration);
 }
 
-.spotlight-active {
+.spotlight--active {
   width: var(--size);
   height: var(--size);
-  opacity: var(--opacity);
-  visibility: visible;
 }
 </style>
 
 <template>
-  <div class="spotlight-overlay" ref="overlay">
+  <div class="spotlight__overlay" :class="{ 'spotlight__overlay--active': active }" ref="overlay">
     <div
       class="spotlight"
-      :class="{ 'spotlight-active': active }"
+      :class="{ 'spotlight--active': active }"
       :style="cssVars"
       ref="spotlight"
     ></div>

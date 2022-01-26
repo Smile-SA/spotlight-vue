@@ -29,11 +29,11 @@ Use it in your `Vue.js` app with:
 <spotlight/>
 ```
 
-In your app, maintain the <kbd>Alt</kbd> key pressed and the spotlight should appear.
+In your app, maintain the <kbd>Control</kbd> key pressed and the spotlight should appear.
 
 ## Parameters
 
-* `activationKey` (type: `string`, default: `'Alt'`): The key to hold down to activate the spotlight
+* `activationKey` (type: `string`, default: `'Control'`): The key to hold down to activate the spotlight
 * `color` (type: `string`, default: `'black'`): CSS color of the spotlight shadow
 * `opacity` (type: `number | string`, default: `0.75`): Opacity of the spotlight shadow
 * `size` (type: `string`, default: `100px`): Size of the spotlight
