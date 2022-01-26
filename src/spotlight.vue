@@ -30,7 +30,6 @@ function removeEmptyValues(obj: Record<string, any>): Record<string, any> {
 }
 
 function onKeydown(event: KeyboardEvent) {
-  console.log(event.key);
   if (event.key === activationKey) {
     active.value = true;
   }
