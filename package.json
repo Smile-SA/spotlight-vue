@@ -1,6 +1,6 @@
 {
   "name": "spotlight-vue",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Key activable spotlight for Vue.js (initially built for Slidev)",
   "homepage": "https://github.com/Smile-SA/spotlight-vue",
   "repository": {
