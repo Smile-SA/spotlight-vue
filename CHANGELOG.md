@@ -1,3 +1,9 @@
+#### 0.2.2 (2022-01-27)
+
+##### Bug Fixes
+
+*  remove console.log ([8e211d2f](https://github.com/Smile-SA/spotlight-vue/commit/8e211d2f4ead1652544c4cb8a837e0daae62f92d))
+
 #### 0.2.1 (2022-01-26)
 
 ##### Bug Fixes
