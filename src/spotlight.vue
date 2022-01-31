@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref } from "vue";
 
+import type { ServerReactive } from 'vite-plugin-vue-server-ref';
+import _navState from 'server-reactive:nav'; // We hack the "nav" state to sync spotlight through tabs
+const serverNavState = _navState as ServerReactive<{spotlight?: {x: number, y: number}}>;
+
 const props = defineProps<{
   activationKey?: string;
   color?: string;
@@ -12,8 +16,8 @@ const { activationKey = 'Control' } = props;
 
 let x = 0;
 let y = 0;
+let slidesContainer;
 const active = ref(false);
-const overlay = ref<HTMLDivElement>();
 const spotlight = ref<HTMLDivElement>();
 
 const cssVars = computed(() =>
@@ -32,30 +36,46 @@ function removeEmptyValues(obj: Record<string, any>): Record<string, any> {
 function onKeydown(event: KeyboardEvent) {
   if (event.key === activationKey) {
     active.value = true;
+    serverNavState.$patch({spotlight: {x, y}}); // Show spotlight on other tabs even if mouse doesn't move
+    updatePosition();
   }
 }
 
 function onKeyup(event: KeyboardEvent) {
   if (event.key === activationKey) {
     active.value = false;
+    serverNavState.$patch({spotlight: null}); // Push empty data to hide spotlight in other tabs
   }
 }
 
 function onMousemove(event: MouseEvent) {
-  x = event.clientX;
-  y = event.clientY;
-  updatePosition();
+  const rect = slidesContainer.getBoundingClientRect()
+  // Compute x & y as % of the slide (useful in presentation mode because slide is not full screen)
+  x = (event.x - rect.left) / rect.width * 100;
+  y = (event.y - rect.top) / rect.height * 100;
+  if (active.value) {
+    serverNavState.$patch({spotlight: {x, y}}); // Push data for other tabs
+    updatePosition();
+  }
 }
 
 function updatePosition() {
-  if (overlay.value && spotlight.value) {
-    const { height, left, top, width } = overlay.value.getBoundingClientRect();
-    spotlight.value.style.left = ((x - left) / width) * 100 + "%";
-    spotlight.value.style.top = ((y - top) / height) * 100 + "%";
+  if (spotlight.value) {
+    spotlight.value.style.left = x + "%";
+    spotlight.value.style.top = y + "%";
   }
 }
 
 onMounted(() => {
+  slidesContainer = document.querySelector('#slide-content'); // FIXME: didn't find a better way to get the reference as it's from a parent component
+  serverNavState.$onPatch(({spotlight: position}) => {
+    active.value = !!position; // Hide spotlight when receiving empty object
+    if (active.value) {
+      x = position.x;
+      y = position.y;
+      updatePosition();
+    }
+  });
   window.addEventListener("keydown", onKeydown);
   window.addEventListener("keyup", onKeyup);
   window.addEventListener("mousemove", onMousemove);
@@ -114,7 +134,7 @@ onUnmounted(() => {
 </style>
 
 <template>
-  <div class="spotlight__overlay" :class="{ 'spotlight__overlay--active': active }" ref="overlay">
+  <div class="spotlight__overlay" :class="{ 'spotlight__overlay--active': active }">
     <div
       class="spotlight"
       :class="{ 'spotlight--active': active }"
