@@ -32,6 +32,7 @@ function removeEmptyValues(obj: Record<string, any>): Record<string, any> {
 function onKeydown(event: KeyboardEvent) {
   if (event.key === activationKey) {
     active.value = true;
+    updatePosition();
   }
 }
 
@@ -44,7 +45,9 @@ function onKeyup(event: KeyboardEvent) {
 function onMousemove(event: MouseEvent) {
   x = event.clientX;
   y = event.clientY;
-  updatePosition();
+  if (active.value) {
+    updatePosition();
+  }
 }
 
 function updatePosition() {
