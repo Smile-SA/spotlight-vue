@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref } from "vue";
+import { useThrottleFn } from '@vueuse/core';
 
-import type { ServerReactive } from 'vite-plugin-vue-server-ref';
-import _navState from 'server-reactive:nav'; // We hack the "nav" state to sync spotlight through tabs
-const serverNavState = _navState as ServerReactive<{spotlight?: {x: number, y: number}}>;
+import { serverState } from '@slidev/client/env';
+import { clicks, currentPage, isPresenter } from '@slidev/client/logic/nav';
 
 const props = defineProps<{
   activationKey?: string;
@@ -21,22 +21,32 @@ const active = ref(false);
 const spotlight = ref<HTMLDivElement>();
 
 const cssVars = computed(() =>
-  removeEmptyValues({
-    "--color": props.color,
-    "--opacity": props.opacity,
-    "--size": props.size,
-    "--transition-duration": props.transitionDuration,
-  })
+    removeEmptyValues({
+      "--color": props.color,
+      "--opacity": props.opacity,
+      "--size": props.size,
+      "--transition-duration": props.transitionDuration,
+    })
 );
 
 function removeEmptyValues(obj: Record<string, any>): Record<string, any> {
   return Object.fromEntries(Object.entries(obj).filter(([, value]) => value));
 }
 
+function broadcastSpotlightPosition(position: {x?: number, y?: number}) {
+  if (isPresenter.value) {
+    serverState.$patch({
+      page: currentPage.value,
+      clicks: clicks.value,
+      spotlight: position
+    });
+  }
+}
+
 function onKeydown(event: KeyboardEvent) {
   if (event.key === activationKey) {
     active.value = true;
-    serverNavState.$patch({spotlight: {x, y}}); // Show spotlight on other tabs even if mouse doesn't move
+    broadcastSpotlightPosition({x, y}); // Show spotlight on other tabs even if mouse doesn't move
     updatePosition();
   }
 }
@@ -44,20 +54,20 @@ function onKeydown(event: KeyboardEvent) {
 function onKeyup(event: KeyboardEvent) {
   if (event.key === activationKey) {
     active.value = false;
-    serverNavState.$patch({spotlight: null}); // Push empty data to hide spotlight in other tabs
+    broadcastSpotlightPosition({}); // Push empty data to hide spotlight in other tabs
   }
 }
 
-function onMousemove(event: MouseEvent) {
+const onMousemove = useThrottleFn((event: MouseEvent) => {
   const rect = slidesContainer.getBoundingClientRect()
   // Compute x & y as % of the slide (useful in presentation mode because slide is not full screen)
   x = (event.x - rect.left) / rect.width * 100;
   y = (event.y - rect.top) / rect.height * 100;
   if (active.value) {
-    serverNavState.$patch({spotlight: {x, y}}); // Push data for other tabs
+    broadcastSpotlightPosition({x, y}); // Push data for other tabs
     updatePosition();
   }
-}
+}, 1000/60);
 
 function updatePosition() {
   if (spotlight.value) {
@@ -68,8 +78,8 @@ function updatePosition() {
 
 onMounted(() => {
   slidesContainer = document.querySelector('#slide-content'); // FIXME: didn't find a better way to get the reference as it's from a parent component
-  serverNavState.$onPatch(({spotlight: position}) => {
-    active.value = !!position; // Hide spotlight when receiving empty object
+  serverState.$onPatch(({spotlight: position}) => {
+    active.value = !!position.x; // Hide spotlight when no coords
     if (active.value) {
       x = position.x;
       y = position.y;
@@ -102,7 +112,7 @@ onUnmounted(() => {
   left: 0;
   pointer-events: none;
   overflow: hidden;
-	background-color: var(--color);
+  background-color: var(--color);
   mix-blend-mode: multiply;
   opacity: 0;
   visibility: hidden;
