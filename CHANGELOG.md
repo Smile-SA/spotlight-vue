@@ -1,3 +1,9 @@
+### 0.3.0 (2022-02-04)
+
+##### New Features
+
+*  add events ([1a374a0c](https://github.com/Smile-SA/spotlight-vue/commit/1a374a0c44051b4e29633354ceed93278d30809a))
+
 #### 0.2.2 (2022-01-27)
 
 ##### Bug Fixes
