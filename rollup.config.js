@@ -12,7 +12,7 @@ import ttypescript from "ttypescript";
 const name = "Spotlight";
 const lib = "spotlight";
 
-const external = ["vue"];
+const external = ["vue", "@vueuse/core"];
 const globals = { vue: "Vue" };
 
 const esbrowserslist = fs
