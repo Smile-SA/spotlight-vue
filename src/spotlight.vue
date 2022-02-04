@@ -148,12 +148,12 @@ onUnmounted(() => {
   <div
     class="spotlight__overlay"
     :class="{ 'spotlight__overlay--active': active }"
+    :style="cssVars"
     ref="overlay"
   >
     <div
       class="spotlight"
       :class="{ 'spotlight--active': active }"
-      :style="cssVars"
       ref="spotlight"
     ></div>
   </div>

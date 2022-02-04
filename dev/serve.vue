@@ -12,6 +12,6 @@ export default defineComponent({
 
 <template>
   <div id="app">
-    <spotlight />
+    <spotlight/>
   </div>
 </template>
