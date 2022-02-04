@@ -1,6 +1,11 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref } from "vue";
+import { computed, defineEmits, onMounted, onUnmounted, ref } from "vue";
 import { useThrottleFn } from "@vueuse/core";
+
+export interface Position {
+  x: number,
+  y: number
+}
 
 const props = defineProps<{
   activationKey?: string;
@@ -9,7 +14,9 @@ const props = defineProps<{
   size?: string;
   transitionDuration?: string;
 }>();
-const { activationKey = 'Control' } = props;
+const { activationKey = "Control" } = props;
+
+const emit = defineEmits(['activate', 'deactivate', 'update']);
 
 let x = 0;
 let y = 0;
@@ -33,6 +40,8 @@ function removeEmptyValues(obj: Record<string, any>): Record<string, any> {
 function onKeydown(event: KeyboardEvent) {
   if (event.key === activationKey) {
     active.value = true;
+    const position: Position = { x, y };
+    emit('activate', position);
     updatePosition();
   }
 }
@@ -40,22 +49,28 @@ function onKeydown(event: KeyboardEvent) {
 function onKeyup(event: KeyboardEvent) {
   if (event.key === activationKey) {
     active.value = false;
+    const position: Position = { x, y };
+    emit('deactivate', position);
   }
 }
 
 const onMousemove = useThrottleFn((event: MouseEvent) => {
-  x = event.clientX;
-  y = event.clientY;
-  if (active.value) {
-    updatePosition();
-  }
-}, 1000/60);
-
-function updatePosition() {
   if (overlay.value && spotlight.value) {
     const { height, left, top, width } = overlay.value.getBoundingClientRect();
-    spotlight.value.style.left = ((x - left) / width) * 100 + "%";
-    spotlight.value.style.top = ((y - top) / height) * 100 + "%";
+    x = ((event.clientX - left) / width) * 100;
+    y = ((event.clientY - top) / height) * 100;
+  }
+  if (active.value) {
+    const position: Position = { x, y };
+    emit('update', position);
+    updatePosition();
+  }
+}, 1000 / 60);
+
+function updatePosition() {
+  if (spotlight.value) {
+    spotlight.value.style.left = x + "%";
+    spotlight.value.style.top = y + "%";
   }
 }
 
@@ -86,11 +101,12 @@ onUnmounted(() => {
   left: 0;
   pointer-events: none;
   overflow: hidden;
-	background-color: var(--color);
+  background-color: var(--color);
   mix-blend-mode: multiply;
   opacity: 0;
   visibility: hidden;
-  transition: opacity var(--transition-duration), visibility var(--transition-duration);
+  transition: opacity var(--transition-duration),
+    visibility var(--transition-duration);
 }
 
 .spotlight__overlay--active {
@@ -108,7 +124,8 @@ onUnmounted(() => {
   background-color: white;
   width: 0;
   height: 0;
-  transition: width var(--transition-duration), height var(--transition-duration);
+  transition: width var(--transition-duration),
+    height var(--transition-duration);
 }
 
 .spotlight--active {
@@ -118,7 +135,11 @@ onUnmounted(() => {
 </style>
 
 <template>
-  <div class="spotlight__overlay" :class="{ 'spotlight__overlay--active': active }" ref="overlay">
+  <div
+    class="spotlight__overlay"
+    :class="{ 'spotlight__overlay--active': active }"
+    ref="overlay"
+  >
     <div
       class="spotlight"
       :class="{ 'spotlight--active': active }"
