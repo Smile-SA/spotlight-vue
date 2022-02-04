@@ -4,6 +4,7 @@ import { useThrottleFn } from '@vueuse/core';
 
 import { serverState } from '@slidev/client/env';
 import { clicks, currentPage, isPresenter } from '@slidev/client/logic/nav';
+import { showPresenterCursor } from '@slidev/client/state'
 
 const props = defineProps<{
   activationKey?: string;
@@ -17,6 +18,7 @@ const { activationKey = 'Control' } = props;
 let x = 0;
 let y = 0;
 let slidesContainer;
+let showPresenterCursorSave;
 const active = ref(false);
 const spotlight = ref<HTMLDivElement>();
 
@@ -35,16 +37,21 @@ function removeEmptyValues(obj: Record<string, any>): Record<string, any> {
 
 function broadcastSpotlightPosition(position: {x?: number, y?: number}) {
   if (isPresenter.value) {
+    const showSpotlight = !!position.x;
+    if (showSpotlight) showPresenterCursor.value = false;
     serverState.$patch({
       page: currentPage.value,
       clicks: clicks.value,
+      cursor: {x: -100, y: -100},
       spotlight: position
     });
+    if (!showSpotlight) showPresenterCursor.value = showPresenterCursorSave;
   }
 }
 
 function onKeydown(event: KeyboardEvent) {
   if (event.key === activationKey) {
+    if (!active.value) showPresenterCursorSave = showPresenterCursor.value;
     active.value = true;
     broadcastSpotlightPosition({x, y}); // Show spotlight on other tabs even if mouse doesn't move
     updatePosition();
@@ -146,10 +153,10 @@ onUnmounted(() => {
 <template>
   <div class="spotlight__overlay" :class="{ 'spotlight__overlay--active': active }">
     <div
-      class="spotlight"
-      :class="{ 'spotlight--active': active }"
-      :style="cssVars"
-      ref="spotlight"
+        class="spotlight"
+        :class="{ 'spotlight--active': active }"
+        :style="cssVars"
+        ref="spotlight"
     ></div>
   </div>
 </template>
