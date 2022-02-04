@@ -1,3 +1,10 @@
+#### 0.4.1 (2022-02-04)
+
+##### Bug Fixes
+
+*  props as CSS variables ([6eb4676a](https://github.com/Smile-SA/spotlight-vue/commit/6eb4676a6f40582d907fdbc46eb57fd2cfc3ffc1))
+*  README ([3037fc8c](https://github.com/Smile-SA/spotlight-vue/commit/3037fc8ca382b284b98d325f9fa983d9a874b619))
+
 ### 0.4.0 (2022-02-04)
 
 ##### New Features
