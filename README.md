@@ -33,11 +33,14 @@ In your app, maintain the <kbd>Control</kbd> key pressed and the spotlight shoul
 
 ## Parameters
 
+* `activate` (type; `boolean`): Activate manually the spotlight
 * `activationKey` (type: `string`, default: `'Control'`): The key to hold down to activate the spotlight
 * `color` (type: `string`, default: `'black'`): CSS color of the spotlight shadow
 * `opacity` (type: `number | string`, default: `0.75`): Opacity of the spotlight shadow
 * `size` (type: `string`, default: `100px`): Size of the spotlight
 * `transitionDuration` (type: `string`, default: `200ms`): CSS transition durations
+* `x` (type; `number`): Set manually the spotlight X position
+* `y` (type; `number`): Set manually the spotlight Y position
 
 ## Events
 
@@ -45,7 +48,7 @@ In your app, maintain the <kbd>Control</kbd> key pressed and the spotlight shoul
 * `deactivate`: Fired when component is deactivated
 * `update`: Fired when component is active and position is updated
 
-All three events also send an object with the following shape:
+All three events also send a position object with the following shape:
 
 * `x` (type: `number`): X position in percentage of the container
 * `y` (type: `number`): Y position in percentage of the container

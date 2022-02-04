@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, defineEmits, onMounted, onUnmounted, ref } from "vue";
+import { computed, defineEmits, onMounted, onUnmounted, ref, watchEffect } from "vue";
 import { useThrottleFn } from "@vueuse/core";
 
 export interface Position {
@@ -8,11 +8,14 @@ export interface Position {
 }
 
 const props = defineProps<{
+  active?: boolean;
   activationKey?: string;
   color?: string;
   opacity?: number | string;
   size?: string;
   transitionDuration?: string;
+  x?: number;
+  y?: number;
 }>();
 const { activationKey = "Control" } = props;
 
@@ -33,22 +36,25 @@ const cssVars = computed(() =>
   })
 );
 
+watchEffect(() => updatePosition(props.x, props.y));
+watchEffect(() => updateActive(props.active));
+
 function removeEmptyValues(obj: Record<string, any>): Record<string, any> {
   return Object.fromEntries(Object.entries(obj).filter(([, value]) => value));
 }
 
 function onKeydown(event: KeyboardEvent) {
   if (event.key === activationKey) {
-    active.value = true;
+    updateActive(true);
     const position: Position = { x, y };
     emit('activate', position);
-    updatePosition();
+    updatePosition(x, y);
   }
 }
 
 function onKeyup(event: KeyboardEvent) {
   if (event.key === activationKey) {
-    active.value = false;
+    updateActive(false);
     const position: Position = { x, y };
     emit('deactivate', position);
   }
@@ -63,12 +69,16 @@ const onMousemove = useThrottleFn((event: MouseEvent) => {
   if (active.value) {
     const position: Position = { x, y };
     emit('update', position);
-    updatePosition();
+    updatePosition(x, y);
   }
 }, 1000 / 60);
 
-function updatePosition() {
-  if (spotlight.value) {
+function updateActive(isActive?: boolean) {
+  active.value = Boolean(isActive);
+}
+
+function updatePosition(x?: number, y?: number) {
+  if (spotlight.value && x !== undefined && y !== undefined) {
     spotlight.value.style.left = x + "%";
     spotlight.value.style.top = y + "%";
   }
