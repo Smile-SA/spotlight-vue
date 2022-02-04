@@ -1,3 +1,13 @@
+### 0.4.0 (2022-02-04)
+
+##### New Features
+
+*  add props to manually control the spotlight ([7a01d5d9](https://github.com/Smile-SA/spotlight-vue/commit/7a01d5d90578d7958a710b463d9626697ff26a5f))
+
+##### Bug Fixes
+
+*  build dependencies ([54930778](https://github.com/Smile-SA/spotlight-vue/commit/54930778d32bd737c638c82a99c20c77261fa3fd))
+
 ### 0.3.0 (2022-02-04)
 
 ##### New Features
