@@ -1,3 +1,9 @@
+#### 0.4.2 (2022-02-04)
+
+##### Bug Fixes
+
+*  remove defineEmits (compiler macro) ([88c01d17](https://github.com/Smile-SA/spotlight-vue/commit/88c01d1727977424161599486b7038e31c55b687))
+
 #### 0.4.1 (2022-02-04)
 
 ##### Bug Fixes
