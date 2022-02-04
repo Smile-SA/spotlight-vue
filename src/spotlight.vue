@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, defineEmits, onMounted, onUnmounted, ref, watchEffect } from "vue";
+import { computed, onMounted, onUnmounted, ref, watchEffect } from "vue";
 import { useThrottleFn } from "@vueuse/core";
 
 export interface Position {
