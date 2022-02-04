@@ -1,11 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref, watchEffect } from "vue";
 import { useThrottleFn } from "@vueuse/core";
-
-export interface Position {
-  x: number,
-  y: number
-}
+import type { Position } from "@/types";
 
 const props = defineProps<{
   active?: boolean;
