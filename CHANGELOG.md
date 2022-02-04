@@ -1,3 +1,9 @@
+#### 0.4.3 (2022-02-04)
+
+##### Bug Fixes
+
+*  export type ([05420d7c](https://github.com/Smile-SA/spotlight-vue/commit/05420d7c1479874162b3f503b77701c85cc98ffa))
+
 #### 0.4.2 (2022-02-04)
 
 ##### Bug Fixes
