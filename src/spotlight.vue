@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref } from "vue";
+import { useThrottleFn } from "@vueuse/core";
 
 const props = defineProps<{
   activationKey?: string;
@@ -42,13 +43,13 @@ function onKeyup(event: KeyboardEvent) {
   }
 }
 
-function onMousemove(event: MouseEvent) {
+const onMousemove = useThrottleFn((event: MouseEvent) => {
   x = event.clientX;
   y = event.clientY;
   if (active.value) {
     updatePosition();
   }
-}
+}, 1000/60);
 
 function updatePosition() {
   if (overlay.value && spotlight.value) {
