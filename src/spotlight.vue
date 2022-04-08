@@ -13,7 +13,7 @@ const props = defineProps<{
   x?: number;
   y?: number;
 }>();
-const { activationKey = "Control" } = props;
+const { activationKey = "Shift" } = props;
 
 const emit = defineEmits(['activate', 'deactivate', 'update']);
 
