@@ -1,3 +1,9 @@
+#### 0.4.4 (2022-04-08)
+
+##### Bug Fixes
+
+*  use Shift key by default. ([2cfac167](https://github.com/Smile-SA/spotlight-vue/commit/2cfac16716393b71e3b7bc94519df535c0587442))
+
 #### 0.4.3 (2022-02-04)
 
 ##### Bug Fixes
