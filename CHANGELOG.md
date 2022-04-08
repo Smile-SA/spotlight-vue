@@ -1,3 +1,9 @@
+#### 0.4.5 (2022-04-08)
+
+##### Bug Fixes
+
+*  update peerDependencies ([76502730](https://github.com/Smile-SA/spotlight-vue/commit/7650273066d10ce0aee5b96bb1f32b9e912171c4))
+
 #### 0.4.4 (2022-04-08)
 
 ##### Bug Fixes
