@@ -1,5 +1,5 @@
 // iife/cjs usage extends esm default export - so import it all
-import component, * as namedExports from '@/entry.esm';
+import component, * as namedExports from './entry.esm';
 
 // Types export
 export * from "./types";

@@ -17,6 +17,8 @@ npm i spotlight-vue
 Import with:
 ```js
 import Spotlight from 'spotlight-vue';
+// Also import styles
+import 'spotlight-vue/dist/style.css';
 ```
 
 Register the plugin:

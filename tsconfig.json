@@ -19,17 +19,6 @@
       "node",
       "vue"
     ],
-    "paths": {
-      "@/*": [
-        "src/*"
-      ]
-    },
-    "plugins": [
-      {
-        "transform":"@zerollup/ts-transform-paths",
-        "exclude": ["*"]
-      }
-    ],
     "lib": [
       "esnext",
       "dom",
@@ -37,8 +26,10 @@
       "scripthost"
     ]
   },
+  "include": ["src"],
   "exclude": [
     "node_modules",
     "dist"
-  ]
+  ],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }
