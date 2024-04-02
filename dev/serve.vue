@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
-import Spotlight from '@/spotlight.vue';
+import Spotlight from '../src/spotlight.vue';
 
 export default defineComponent({
   name: 'ServeDev',
