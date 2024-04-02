@@ -1,3 +1,9 @@
+#### 0.5.1 (2024-04-02)
+
+##### Chores
+
+*  use vite for build ([eb869f09](https://github.com/Smile-SA/spotlight-vue/commit/eb869f09a9f3329f878587904158ef52b5cdb4cd))
+
 ### 0.5.0 (2024-04-02)
 
 ##### Chores
