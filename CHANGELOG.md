@@ -1,3 +1,10 @@
+### 0.5.0 (2024-04-02)
+
+##### Chores
+
+*  update licence ([bf6ada5b](https://github.com/Smile-SA/spotlight-vue/commit/bf6ada5b03b404311612624ecff695ae6c12ed96))
+*  switch to vite for dev ([61455843](https://github.com/Smile-SA/spotlight-vue/commit/61455843373f0cf8c619b94b476fcdd30d1ac9e3))
+
 #### 0.4.5 (2022-04-08)
 
 ##### Bug Fixes
